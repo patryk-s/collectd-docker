@@ -22,7 +22,7 @@ var appLocationLabel = "collectd_docker_app_label"
 var taskLabel = getenv("TASK_LABEL_KEY", "collectd_docker_task")
 var taskLocationLabel = "collectd_docker_task_label"
 
-var appEnvPrefix = getenv("APP_ENV_KEY", "COLLECTD_DOCKER_APP") + "="
+var appEnvPrefix = getenv("APP_ENV_KEY", "MESOS_TASK_ID") + "="
 var appEnvLocationPrefix = "COLLECTD_DOCKER_APP_ENV="
 var appEnvLocationTrimPrefix = "COLLECTD_DOCKER_APP_ENV_TRIM_PREFIX="
 var taskEnvPrefix = getenv("TASK_ENV_KEY", "COLLECTD_DOCKER_TASK") + "="
@@ -59,12 +59,14 @@ func NewMonitor(c MonitorDockerClient, id string, interval int) (*Monitor, error
 		return nil, err
 	}
 
-	app := sanitizeForGraphite(extractApp(container))
+	app_slice := strings.Split(extractApp(container), ".")
+
+	app := sanitizeForGraphite(app_slice[0])
 	if app == "" {
 		return nil, ErrNoNeedToMonitor
 	}
 
-	task := sanitizeForGraphite(extractTask(container))
+	task := sanitizeForGraphite(app_slice[1])
 
 	return &Monitor{
 		client:   c,
