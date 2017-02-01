@@ -70,7 +70,11 @@ func NewMonitor(c MonitorDockerClient, id string, interval int) (*Monitor, error
 		return nil, ErrNoNeedToMonitor
 	}
 
-	task := sanitizeForGraphite(app_slice[1])
+	if len(app_slice) == 2 {
+		task := sanitizeForGraphite(app_slice[1])
+	} else {
+		task := defaultTask
+	}
 
 	return &Monitor{
 		client:   c,
