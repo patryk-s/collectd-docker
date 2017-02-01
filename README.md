@@ -1,3 +1,5 @@
+[![](https://images.microbadger.com/badges/image/patryks/collectd-docker.svg)](http://microbadger.com/images/patryks/collectd-docker "Get your own image badge on microbadger.com")
+
 # Collect docker container resource usage
 
 This is collectd plugin and docker image to collect resource usage from docker
