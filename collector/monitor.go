@@ -59,7 +59,11 @@ func NewMonitor(c MonitorDockerClient, id string, interval int) (*Monitor, error
 		return nil, err
 	}
 
-	app_slice := strings.Split(extractApp(container), ".")
+	container_app := extractApp(container)
+	if container_app == "" {
+		return nil, ErrNoNeedToMonitor
+	}
+	app_slice := strings.Split(container_app, ".")
 
 	app := sanitizeForGraphite(app_slice[0])
 	if app == "" {
