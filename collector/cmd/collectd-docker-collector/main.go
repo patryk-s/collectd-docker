@@ -7,7 +7,7 @@ import (
 
 	"path"
 
-	"github.com/bobrik/collectd-docker/collector"
+	"github.com/patryk-s/collectd-docker/collector"
 	"github.com/fsouza/go-dockerclient"
 )
 
