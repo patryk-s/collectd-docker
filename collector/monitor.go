@@ -4,7 +4,6 @@ import (
 	"errors"
 	"strings"
 	"os"
-	"fmt"
 
 	"github.com/fsouza/go-dockerclient"
 )
@@ -70,13 +69,8 @@ func NewMonitor(c MonitorDockerClient, id string, interval int) (*Monitor, error
 	if app == "" {
 		return nil, ErrNoNeedToMonitor
 	}
-	fmt.Println("DEBUG: container_app: ", container_app)
 
-	// if len(app_slice) == 2 {
-		task := sanitizeForGraphite(app_slice[1])
-	// } else {
-		// task := "default"
-	// }
+	task := sanitizeForGraphite(app_slice[1])
 
 	return &Monitor{
 		client:   c,
