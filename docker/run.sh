@@ -31,5 +31,11 @@ if [ ! $(getent passwd "collectd-docker-collector") ]; then
   useradd -g "${GROUP}" collectd-docker-collector
 fi
 
+if [ "${STUNNEL}" == "1" ]; then
+	envsubst < /etc/collectd/stunnel.conf.templ > /tmp/stunnel.conf
+	export GRAPHITE_HOST="127.0.0.1"
+	stunnel /tmp/stunnel.conf &
+fi
+
 exec reefer -t /etc/collectd/collectd.conf.tpl:/tmp/collectd.conf -E \
   collectd -f -C /tmp/collectd.conf "$@" > /dev/null

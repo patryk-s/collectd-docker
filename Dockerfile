@@ -10,6 +10,7 @@ ENV PATH "${GOPATH}/bin:/usr/local/go/bin:${PATH}"
 COPY collector /go/src/github.com/patryk-s/collectd-docker/collector
 COPY docker/run.sh /run.sh
 COPY docker/collectd.conf.tpl /etc/collectd/collectd.conf.tpl
+COPY docker/stunnel.conf.templ /etc/collectd/stunnel.conf.templ
 
 RUN echo "APT::Install-Recommends              false;" >> /etc/apt/apt.conf.d/recommends.conf && \
     echo "APT::Install-Suggests                false;" >> /etc/apt/apt.conf.d/recommends.conf && \
