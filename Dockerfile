@@ -17,7 +17,9 @@ RUN echo "APT::Install-Recommends              false;" >> /etc/apt/apt.conf.d/re
     echo "APT::AutoRemove::RecommendsImportant false;" >> /etc/apt/apt.conf.d/recommends.conf && \
     echo "APT::AutoRemove::SuggestsImportant   false;" >> /etc/apt/apt.conf.d/recommends.conf
 
-RUN echo "deb http://pkg.ci.collectd.org/deb jessie master" >> /etc/apt/sources.list
+RUN echo "deb http://pkg.ci.collectd.org/deb jessie master" >> /etc/apt/sources.list \
+    && gpg --recv-keys 3994D24FB8543576 \
+	&& gpg --export -a 3994D24FB8543576 | apt-key add -
 
 RUN apt-get update && \
     apt-get install -y collectd gettext stunnel4 git curl ca-certificates && \
