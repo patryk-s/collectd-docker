@@ -17,6 +17,8 @@ RUN echo "APT::Install-Recommends              false;" >> /etc/apt/apt.conf.d/re
     echo "APT::AutoRemove::RecommendsImportant false;" >> /etc/apt/apt.conf.d/recommends.conf && \
     echo "APT::AutoRemove::SuggestsImportant   false;" >> /etc/apt/apt.conf.d/recommends.conf
 
+RUN echo "deb http://pkg.ci.collectd.org/deb jessie master" >> /etc/apt/sources.list
+
 RUN apt-get update && \
     apt-get install -y collectd gettext stunnel4 git curl ca-certificates && \
     curl -sL "${GOLANG_DOWNLOAD_URL}" > "${GOLANG_DOWNLOAD_DESTINATION}" && \
