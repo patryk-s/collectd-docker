@@ -38,4 +38,4 @@ if [ "${SSL}" == "1" ]; then
 fi
 
 exec reefer -t /etc/collectd/collectd.conf.tpl:/tmp/collectd.conf -E \
-  collectd -f -C /tmp/collectd.conf "$@" > /dev/null
+  collectd -f -C /tmp/collectd.conf "$@" 2>&1 > /dev/null
